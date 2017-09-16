@@ -51,22 +51,6 @@ summary(county3$taxvaluedollarcnt)
 table(cut(county3$taxvaluedollarcnt, breaks=c(100000, 200000, 300000, 450000, 750000, 1000000, 5000000), labels=c("< 100000", "200,000", "300,000", "450,000", "750000", "> 1,000,000")))
 
 ```
-
-## Simple Linear Model
-```{r}
-# County 1
-fit <- lm(county1$taxvaluedollarcnt ~ county1$bedroomcnt + county1$bathroomcnt, data = county1)
-summary(fit)
-
-# County 2
-fit <- lm(county2$taxvaluedollarcnt ~ county2$bedroomcnt + county2$bathroomcnt, data = county2)
-summary(fit)
-
-# County 3
-fit <- lm(county3$taxvaluedollarcnt ~ county3$bedroomcnt + county3$bathroomcnt, data = county3)
-summary(fit)
-
-```
 ```{r}
 #Subsetting a range of variables that have too much missing value
 
@@ -86,4 +70,21 @@ ggplot(data = propertiesdata, mapping = aes(x=regionidcounty, y=taxvaluedollarcn
   stat_summary(fun.y = mean, geom = 'point', size=4) + 
   labs(x='', y='height (in)', title = 'Mean Height + 95% CI')
   ```
+
+## Simple Linear Model
+```{r}
+# County 1
+fit <- lm(county1$taxvaluedollarcnt ~ county1$bedroomcnt + county1$bathroomcnt, data = county1)
+summary(fit)
+
+# County 2
+fit <- lm(county2$taxvaluedollarcnt ~ county2$bedroomcnt + county2$bathroomcnt, data = county2)
+summary(fit)
+
+# County 3
+fit <- lm(county3$taxvaluedollarcnt ~ county3$bedroomcnt + county3$bathroomcnt, data = county3)
+summary(fit)
+
+```
+
 ## Additional models
