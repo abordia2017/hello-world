@@ -67,5 +67,23 @@ fit <- lm(county3$taxvaluedollarcnt ~ county3$bedroomcnt + county3$bathroomcnt, 
 summary(fit)
 
 ```
+```{r}
+#Subsetting a range of variables that have too much missing value
 
+ind <- sapply( colnames(propertiesdata), function(x) sum(is.na(propertiesdata[[x]])) < nrow(propertiesdata)/2)
+propertiesdata <- propertiesdata[colnames(propertiesdata)[ind]]
+
+ #convert the regiond id county to factor 
+
+as.factor(propertiesdata[, regionidcounty])
+
+# Calculating the mean in difference between prices and county 
+summary(aov(taxvaluedollarcnt ~ regionidcounty, data = propertiesdata))
+
+# Plotting it for visualization
+ggplot(data = propertiesdata, mapping = aes(x=regionidcounty, y=taxvaluedollarcnt)) + 
+  stat_summary(fun.data = mean_cl_boot, geom='errorbar') + 
+  stat_summary(fun.y = mean, geom = 'point', size=4) + 
+  labs(x='', y='height (in)', title = 'Mean Height + 95% CI')
+  ```
 ## Additional models
