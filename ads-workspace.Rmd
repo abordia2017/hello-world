@@ -92,6 +92,10 @@ table(cut(county3$taxvaluedollarcnt, breaks=c(100000, 200000, 300000, 450000, 75
  Num_PropertiesdataTrim<-as.data.frame(Num_PropertiesdataTrim)
   ```
  
+ 
+ 
+ ## Simple Linear Model
+ 
  ##Linear model on the Properties dataset
  ```{r}
  PLM_model<-lm(taxvaluedollarcnt~.,Num_PropertiesdataTrim[,-1])
@@ -103,7 +107,6 @@ table(cut(county3$taxvaluedollarcnt, breaks=c(100000, 200000, 300000, 450000, 75
  head(melt(cormatrix))
  ```
  
- ## Simple Linear Model
 ```{r}
 # County 1
 fit <- lm(county1$taxvaluedollarcnt ~ county1$bedroomcnt + county1$bathroomcnt, data = county1)
