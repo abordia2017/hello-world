@@ -70,6 +70,37 @@ ggplot(data = propertiesdata, mapping = aes(x=regionidcounty, y=taxvaluedollarcn
   stat_summary(fun.y = mean, geom = 'point', size=4) + 
   labs(x='', y='height (in)', title = 'Mean Height + 95% CI')
   ```
+  ##Data Preparation
+  
+  ```{r}
+  #Checking for numeric data and converting the attributes to numeric for linear model 
+  
+  checkNumeric<-function(x){
+  if(!is.na(mean(as.numeric(as.character(x)),na.rm = T)) & 
+     !is.nan(mean(as.numeric(as.character(x)),na.rm = T))){
+    return(TRUE)
+  }else{
+    return(FALSE)
+  }
+}
+
+Num_Propertiesdata<-propertiesdata_new[,sapply(propertiesdata_new, checkNumeric)]
+
+Num_PropertiesdataTrim<-apply(Num_Propertiesdata,2,as.numeric)
+Num_PropertiesdataTrim<-na.omit(na.approx(Num_PropertiesdataTrim))
+Num_PropertiesdataTrim<-as.data.frame(Num_PropertiesdataTrim)
+ ```
+
+##Linear model on the Properties dataset
+```{r}
+PLM_model<-lm(taxvaluedollarcnt~.,Num_PropertiesdataTrim[,-1])
+summary(OLS_model)
+
+#finding multicollinearity 
+
+cormatrix<-cor(Num_PropertiesdataTrim[,-c(1,which(colnames(Num_PropertiesdataTrim)=="taxvaluedollarcnt"))])
+head(melt(cormatrix))
+```
 
 ## Simple Linear Model
 ```{r}
