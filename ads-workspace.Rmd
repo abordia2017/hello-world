@@ -52,13 +52,13 @@ table(cut(county3$taxvaluedollarcnt, breaks=c(100000, 200000, 300000, 450000, 75
 
 ```
 
--```{r}
+```{r}
 #Subsetting a range of variables that have too much missing value
  
  ind <- sapply( colnames(propertiesdata), function(x) sum(is.na(propertiesdata[[x]])) < nrow(propertiesdata)/2)
  propertiesdata <- propertiesdata[colnames(propertiesdata)[ind]]
  
-  #convert the regiond id county to factor 
+ #convert the regiond id county to factor 
  
  as.factor(propertiesdata[, regionidcounty])
  
